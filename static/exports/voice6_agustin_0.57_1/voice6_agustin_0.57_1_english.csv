@@ -1,0 +1,21 @@
+Sentence,Sentiment,Intent
+Hello.,very positive,Neutral_response
+This is Agustin Beny.,very positive,Neutral_response
+Good afternoon.,positive,Neutral_response
+Agustin Beny is contacting me from South Australia.,very positive,Neutral_response
+Okay.,neutral,Confirmation
+I heard you were looking for an internship.,negative,Confirmation
+Where were you looking for an internship?,negative,Confirmation
+I was looking for an internship because I am paid.,neutral,Confirmation
+Okay.,neutral,Confirmation
+We are not getting paid.,negative,Neutral_response
+We are getting paid now.,very positive,Neutral_response
+The reason to avoid that is because we are doing live projects.,negative,Project_details
+You used to work in a junior position with your seniors.,neutral,Project_details
+Okay.,neutral,Confirmation
+What you are providing is a training certificate.,positive,Certificate_query
+I am currently working.,positive,Project_details
+I am not looking at training.,negative,Confirmation
+Okay.,neutral,Confirmation
+Can you tell me which position you were looking for?,neutral,Confirmation
+Okay.,neutral,Confirmation

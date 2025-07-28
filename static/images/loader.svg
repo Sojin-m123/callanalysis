@@ -1,0 +1,15 @@
+<!-- loader.svg -->
+<svg width="80" height="80" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#42a5f5">
+  <g fill="none" fill-rule="evenodd" stroke-width="4">
+    <circle cx="22" cy="22" r="20" stroke-opacity="0.2"/>
+    <path d="M42 22c0-11.046-8.954-20-20-20">
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 22 22"
+        to="360 22 22"
+        dur="1s"
+        repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

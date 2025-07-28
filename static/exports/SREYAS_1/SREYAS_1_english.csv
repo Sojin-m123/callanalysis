@@ -1,0 +1,10 @@
+Sentence,Sentiment,Intent
+Hello Is this Sanal?,negative,Neutral_response
+"Yes Good evening Sanal, I am contacting you from software Yes Did you apply for the cyber security internship?",neutral,Strong_interest
+Yes I did Can you tell me your qualification?,very positive,Strong_interest
+I completed my degree in EPS Computer Science?,negative,Qualification_query
+Did you do any cyber security?,negative,Neutral_response
+"Yes, I did an ADC in Red Team Can you tell me something in CRI?",negative,Strong_interest
+"Yes, I did an ADC in Red Team Ok, so you know the basics of cyber security Yes We get the internship program for 1 to 3 months We get a small fee of 6000 rupees You are not here Is it a monthly fee?",negative,Strong_interest
+"We get a total fee of 6000 rupees for 3 months Ok, we provide you with live projects You work as a junior position with senior officers We provide you with experience We provide you with experience certificate when you come here Ok, is this his whatsapp number?",negative,Confirmation
+"Yes Ok, I will share the brochure and other details Let me know if you are interested",neutral,Strong_interest

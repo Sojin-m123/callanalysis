@@ -1,0 +1,39 @@
+Sentence,Sentiment,Intent
+Hello.,very positive,Neutral_response
+Hello.,very positive,Neutral_response
+"Hello, is this Nandini?",negative,Neutral_response
+"Yes, Velu.",very positive,Strong_interest
+Who was this?,negative,Neutral_response
+I am calling from Telo software.,negative,Neutral_response
+"Yes, tell me.",very positive,Strong_interest
+Ok. Have you contacted from the user?,neutral,Confirmation
+"Yes, I have.",very positive,Strong_interest
+Ok. Which stream were you looking at?,neutral,Confirmation
+I had not said it for sure.,negative,Neutral_response
+I just told you to look at it while sitting at home.,very positive,Confirmation
+Ok. Ok. Which subject were you studying?,neutral,Confirmation
+I am B.Sc. Physics.,positive,Neutral_response
+B.Sc. Physics.,positive,Neutral_response
+"Ok. So, which frameworks and things you know?",neutral,Confirmation
+What?,negative,Neutral_response
+"Framework and things like Java, C++, Languages etc.",very positive,Project_details
+C and C++ were in our syllabus.,very positive,Neutral_response
+I know a few basic things.,neutral,Neutral_response
+"Ok. Ok. So, are you looking at that as a course?",neutral,Confirmation
+Do you have any special integration?,neutral,Neutral_response
+I haven't decided yet.,neutral,Neutral_response
+"When I was looking at it, I had given a course.",neutral,Confirmation
+"So, we were busy with the lab project.",neutral,Project_details
+I told you to look at it and tell.,very positive,Confirmation
+Ok. Ok. I wanted to give you an update.,neutral,Confirmation
+You had called from the user.,negative,Neutral_response
+Yes.,very positive,Strong_interest
+Yes.,very positive,Strong_interest
+"Ok. If you had given a confirmation, it would have been good.",neutral,Confirmation
+"If that is the case, I am not looking at the situation now.",neutral,Confirmation
+"If it is, it will take about a month.",neutral,Neutral_response
+"Ok. It will be for you, right?",neutral,Confirmation
+Yes.,very positive,Strong_interest
+Yes.,very positive,Strong_interest
+Ok. Thank you.,neutral,Confirmation
+Ok.,neutral,Confirmation

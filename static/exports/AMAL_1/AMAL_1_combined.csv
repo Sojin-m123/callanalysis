@@ -1,0 +1,53 @@
+EN_Sentence,EN_Sentiment,EN_Intent,ML_Sentence,ML_Sentiment
+Hello.,very positive,Neutral_response,ഹലോ.,neutral
+Hello.,very positive,Neutral_response,ഹലോ.,neutral
+"Hello, is this Nandini?",negative,Neutral_response,"ഹലോ, ഈ നന്ദിനിയാണോ?",negative
+"Yes, Velu.",very positive,Strong_interest,"യെസ് , വേലു.",neutral
+Who was this?,negative,Neutral_response,ആരാണ് ഇത്?,negative
+I am calling from Telo software.,negative,Neutral_response,ഞാൻ ടെലോ സോഫ്റ്റ്‌വെയർ നിന്ന് വിളിക്കുന്നു.,very positive
+"Yes, tell me.",very positive,Strong_interest,"യെസ് , എന്നോട് പറയുക.",neutral
+Ok. Have you contacted from the user?,neutral,Confirmation,ഓക്കെ .,neutral
+"Yes, I have.",very positive,Strong_interest,നിങ്ങൾ ഉപയോക്താവിൽ നിന്ന് ബന്ധപ്പെട്ടിട്ടുണ്ടോ?,negative
+Ok. Which stream were you looking at?,neutral,Confirmation,"യെസ് , എനിക്ക് ഉണ്ട്.",very positive
+I had not said it for sure.,negative,Neutral_response,ഓക്കെ .,neutral
+I just told you to look at it while sitting at home.,very positive,Confirmation,ഏത് അരുവിയാണ് നിങ്ങൾ നോക്കിയത്?,negative
+Ok. Ok. Which subject were you studying?,neutral,Confirmation,ഞാൻ അത് ഉറപ്പായിട്ടില്ല.,negative
+I am B.Sc. Physics.,positive,Neutral_response,വീട്ടിൽ ഇരിക്കുമ്പോൾ അത് നോക്കാൻ ഞാൻ നിങ്ങളോട് പറഞ്ഞു.,negative
+B.Sc. Physics.,positive,Neutral_response,ഓക്കെ .,neutral
+"Ok. So, which frameworks and things you know?",neutral,Confirmation,ഓക്കെ .,neutral
+What?,negative,Neutral_response,ഏത് വിഷയമാണ് നിങ്ങൾ പഠിച്ചത്?,neutral
+"Framework and things like Java, C++, Languages etc.",very positive,Project_details,ഞാൻ b.sc.,neutral
+C and C++ were in our syllabus.,very positive,Neutral_response,ഫിസിക്സ്.,very positive
+I know a few basic things.,neutral,Neutral_response,B.SC.,neutral
+"Ok. Ok. So, are you looking at that as a course?",neutral,Confirmation,ഫിസിക്സ്.,very positive
+Do you have any special integration?,neutral,Neutral_response,ഓക്കെ .,neutral
+I haven't decided yet.,neutral,Neutral_response,"അതിനാൽ, ഏത് ചട്ടക്കൂടുകളും നിങ്ങൾക്കറിയാവുന്ന കാര്യങ്ങളും?",neutral
+"When I was looking at it, I had given a course.",neutral,Confirmation,എന്ത്?,negative
+"So, we were busy with the lab project.",neutral,Project_details,"ചട്ടക്കൂട്, ജാവ, സി ++, ഭാഷകൾ മുതലായവ.",very positive
+I told you to look at it and tell.,very positive,Confirmation,"സി, സി ++ എന്നിവ ഞങ്ങളുടെ സിലബസിൽ ഉണ്ടായിരുന്നു.",very positive
+Ok. Ok. I wanted to give you an update.,neutral,Confirmation,എനിക്ക് കുറച്ച് അടിസ്ഥാന കാര്യങ്ങൾ അറിയാം.,neutral
+You had called from the user.,negative,Neutral_response,ഓക്കെ .,neutral
+Yes.,very positive,Strong_interest,ഓക്കെ .,neutral
+Yes.,very positive,Strong_interest,"അതിനാൽ, നിങ്ങൾ അത് ഒരു കോഴ്സായി നോക്കുകയാണോ?",neutral
+"Ok. If you had given a confirmation, it would have been good.",neutral,Confirmation,നിങ്ങൾക്ക് എന്തെങ്കിലും പ്രത്യേക സംയോജനം വേണോ?,negative
+"If that is the case, I am not looking at the situation now.",neutral,Confirmation,ഞാൻ ഇതുവരെ തീരുമാനിച്പ്ലാൻില്ല.,negative
+"If it is, it will take about a month.",neutral,Neutral_response,ഞാൻ അത് നോക്കുമ്പോൾ ഞാൻ ഒരു കോഴ്സ് നൽകിയിരുന്നു.,negative
+"Ok. It will be for you, right?",neutral,Confirmation,"അതിനാൽ, ഞങ്ങൾ ലാബ് പ്രോജക്റ്റിൽ തിരക്കിലായിരുന്നു.",negative
+Yes.,very positive,Strong_interest,അത് നോക്കാനും പറയാനും ഞാൻ നിങ്ങളോട് പറഞ്ഞു.,very positive
+Yes.,very positive,Strong_interest,ഓക്കെ .,neutral
+Ok. Thank you.,neutral,Confirmation,ഓക്കെ .,neutral
+Ok.,neutral,Confirmation,നിങ്ങൾക്ക് ഒരു അപ്ഡേറ്റ് നൽകാൻ ഞാൻ ആഗ്രഹിച്ചു.,negative
+,,,നിങ്ങൾ ഉപയോക്താവിൽ നിന്ന് വിളിച്ചിരുന്നു.,negative
+,,,യെസ് .,neutral
+,,,യെസ് .,neutral
+,,,ഓക്കെ .,neutral
+,,,"നിങ്ങൾ ഒരു കോൺഫർമേഷൻ നൽകിയിരുന്നെങ്കിൽ, അത് നല്ലതാകുമായിരുന്നു.",negative
+,,,"അങ്ങനെയാണെങ്കിൽ, ഞാൻ ഇപ്പോൾ സാഹചര്യം നോക്കുന്നില്ല.",negative
+,,,"അങ്ങനെയാണെങ്കിൽ, അത് ഒരു മാസം എടുക്കും.",negative
+,,,ഓക്കെ .,neutral
+,,,"അത് നിങ്ങൾക്കായിരിക്കും, അല്ലേ?",negative
+,,,യെസ് .,neutral
+,,,യെസ് .,neutral
+,,,ഓക്കെ .,neutral
+,,,നന്ദി.,very positive
+,,,ഓക്കെ .,neutral

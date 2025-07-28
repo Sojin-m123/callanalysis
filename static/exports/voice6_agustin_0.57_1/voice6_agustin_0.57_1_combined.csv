@@ -1,0 +1,21 @@
+EN_Sentence,EN_Sentiment,EN_Intent,ML_Sentence,ML_Sentiment
+Hello.,very positive,Neutral_response,ഹലോ.,neutral
+This is Agustin Beny.,very positive,Neutral_response,ഇതാണ് അഗസ്റ്റിൻ ബെനി.,very positive
+Good afternoon.,positive,Neutral_response,ഗുഡ് ആഫ്റ്റർനൂൺ.,very positive
+Agustin Beny is contacting me from South Australia.,very positive,Neutral_response,അഗസ്റ്റിൻ ബെനി സൗത്ത് ഓസ്ട്രേലിയയിൽ നിന്ന് എന്നെ വിളിക്കുന്നു.,negative
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+I heard you were looking for an internship.,negative,Confirmation,നിങ്ങൾ ഒരു ഇന്റേൺഷിപ്പ് തേടുന്നുവെന്ന് ഞാൻ കേട്ടു.,negative
+Where were you looking for an internship?,negative,Confirmation,നിങ്ങൾ എവിടെയാണ് ഇന്റേൺഷിപ്പ് തേച്ചത്?,negative
+I was looking for an internship because I am paid.,neutral,Confirmation,എനിക്ക് പണം ലഭിച്ചതിനാൽ ഞാൻ ഒരു ഇന്റേൺഷിപ്പ് തിരയുകയായിരുന്നു.,negative
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+We are not getting paid.,negative,Neutral_response,ഞങ്ങൾക്ക് പണം ലഭിക്കുന്നില്ല.,negative
+We are getting paid now.,very positive,Neutral_response,ഞങ്ങൾക്ക് ഇപ്പോൾ പണം ലഭിക്കുന്നു.,very positive
+The reason to avoid that is because we are doing live projects.,negative,Project_details,"അത് ഒഴിവാക്കാനുള്ള കാരണം, ഞങ്ങൾ തത്സമയ പ്രോജക്റ്റുകൾ ചെയ്യുന്നതിനാലാണിത്.",neutral
+You used to work in a junior position with your seniors.,neutral,Project_details,നിങ്ങളുടെ മുതിർന്നവരുമൊത്തുള്ള ഒരു ജൂനിയർ സ്ഥാനത്ത് നിങ്ങൾ ജോലി ചെയ്യാറുണ്ടായിരുന്നു.,negative
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+What you are providing is a training certificate.,positive,Certificate_query,നിങ്ങൾ നൽകുന്നതെന്താണ് ഒരു പരിശീലന സർട്ടിഫിക്കറ്റ്.,very positive
+I am currently working.,positive,Project_details,ഞാൻ നിലവിൽ വർക്കിംഗ്.,very positive
+I am not looking at training.,negative,Confirmation,ഞാൻ ട്രെയിനിംഗ് നോക്കുന്നില്ല.,negative
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+Can you tell me which position you were looking for?,neutral,Confirmation,നിങ്ങൾ തിരയുന്ന സ്ഥാനം എന്നോട് പറയാമോ?,negative
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
