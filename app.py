@@ -62,8 +62,8 @@ def index():
         model_size = request.form.get('model_size', 'small')
         custom_filename = request.form.get('custom_filename', '').strip()
 
-        if not (file and agent and phone):
-            flash("Please fill all fields", "warning")
+        if not (file and agent):
+            flash("Please fill all required fields", "warning")
             return redirect(url_for('index'))
 
         safe_name = secure_filename(custom_filename or file.filename)
@@ -90,20 +90,28 @@ def index():
         en_transcript = data['raw_transcription']
         ml_transcript = data.get('translated_malayalam', '')
 
-        sentiment = analyze_sentiment_batch([en_transcript])[0]['label']
-        intent_info = detect_intent(en_transcript)
+        intent_info = detect_intent(en_transcript, language='en')
         intent = intent_info.get('intent', 'Neutral')
         intent_score = int(intent_info.get('sentiment_score', 0.5) * 100)
+        sentiment = intent_info.get('sentiment', 'neutral')
 
         trigger_words = detect_keywords(en_transcript)
-        lead_score = calculate_lead_score(intent_score, sentiment, trigger_words)
+        # Create segment_results by analyzing each sentence of the transcript
+        segment_results = []
+        for s in split_into_sentences(en_transcript):
+            intent_info = detect_intent(s, language='en')
+            segment_results.append({'text': s, 'intent': intent_info.get('intent', 'Neutral_response'), 'sentiment': intent_info.get('sentiment', 'neutral')})
+        language = 'en'
+        lead_score = calculate_lead_score(intent_score, sentiment, trigger_words, segment_results, language)
 
-        ml_analysis = [{'text': s, 'sentiment': analyze_sentiment_batch([s])[0]['label']} for s in split_into_sentences(ml_transcript)]
+        ml_analysis = []
+        for s in split_into_sentences(ml_transcript):
+            ml_intent_info = detect_intent(s, language='ml')
+            ml_analysis.append({'text': s, 'sentiment': ml_intent_info.get('sentiment', 'neutral'), 'intent': ml_intent_info.get('intent', '-')})
         en_analysis = []
         for s in split_into_sentences(en_transcript):
-            lab = analyze_sentiment_batch([s])[0]['label']
-            it = detect_intent(s).get('intent', '-')
-            en_analysis.append({'text': s, 'sentiment': lab, 'intent': it})
+            en_intent_info = detect_intent(s, language='en')
+            en_analysis.append({'text': s, 'sentiment': en_intent_info.get('sentiment', 'neutral'), 'intent': en_intent_info.get('intent', '-')})
 
         comparison_data = []
         max_len = max(len(en_analysis), len(ml_analysis))

@@ -1,0 +1,27 @@
+Sentence,Sentiment,Intent
+"Hello, this is Deepti.",very positive,Neutral_response
+"Hello, this is Deepti.",very positive,Neutral_response
+How are you?,very positive,Neutral_response
+I am in touch with Deepti from Tino Software.,very positive,company_query
+Okay.,neutral,Confirmation
+"Okay, so the security in India, did you send an inquiry?",neutral,Confirmation
+That was a basic call.,neutral,Neutral_response
+Okay.,neutral,Confirmation
+Did you send the details here?,negative,Neutral_response
+I don't remember.,negative,Neutral_response
+I don't remember as I have a lot of work.,neutral,Project_details
+"Okay, okay.",neutral,Confirmation
+This is Is it a WhatsApp number?,negative,Neutral_response
+Yes.,very positive,Strong_interest
+"Okay, I will share the details.",neutral,Confirmation
+"Also, the internship is for one to three months.",positive,Internship_details
+We have a small fee.,neutral,Fee_query
+The fee is 6000.,negative,Fee_query
+We provide life projects and other things here.,very positive,Project_details
+Okay.,neutral,Confirmation
+"Also, we provide experience certificates.",very positive,Certificate_query
+Okay.,neutral,Confirmation
+Okay.,neutral,Confirmation
+Are you looking for an internship?,negative,Confirmation
+I will tell you.,very positive,Neutral_response
+Okay.,neutral,Confirmation

@@ -1,0 +1,35 @@
+EN_Sentence,EN_Sentiment,EN_Intent,ML_Sentence,ML_Sentiment
+"Hello,",very positive,Neutral_response,"ഹലോ,",neutral
+this is Deepti.,very positive,Neutral_response,ഇത് ഡീപ്തിയയാണ്.,negative
+"Hello,",very positive,Neutral_response,"ഹലോ,",neutral
+this is Deepti.,very positive,Neutral_response,ഇത് ഡീപ്തിയയാണ്.,negative
+"Hello,",very positive,Neutral_response,"ഹലോ,",neutral
+this is Deepti.,very positive,Neutral_response,ഇത് ഡീപ്തിയയാണ്.,negative
+We are contacting you from software.,very positive,Location_query,ഞങ്ങൾ നിങ്ങളെ സോഫ്റ്റ്‌വെയർ നിന്ന് വിളിക്കുന്നു.,very positive
+Okay.,neutral,Neutral_response,ഓക്കെ .,neutral
+"Okay,",neutral,Neutral_response,"ഓക്കെ ,",neutral
+where did you send the security to?,negative,Location_query,നിങ്ങൾ എവിടെയാണ് സെക്യൂരിറ്റി അയയ്ച്ചത്?,negative
+That was the base call.,neutral,Neutral_response,അതായിരുന്നു അടിസ്ഥാന കോൾ.,very positive
+Okay.,neutral,Neutral_response,ഓക്കെ .,neutral
+Did you send the details here?,negative,Neutral_response,നിങ്ങൾ ഡീറ്റെയിൽസ് ഇവിടെ അയച്ചോ?,negative
+Did you send the details here?,negative,Neutral_response,നിങ്ങൾ ഡീറ്റെയിൽസ് ഇവിടെ അയച്ചോ?,negative
+I don't remember.,negative,Neutral_response,എനിക്ക് ഓർമ്മയില്ല.,negative
+I don't remember.,negative,Neutral_response,എനിക്ക് ഓർമ്മയില്ല.,negative
+Okay.,neutral,Neutral_response,ഓക്കെ .,neutral
+This is Is it a WhatsApp number?,negative,Strong_interest,ഇതൊരു വാട്ട്സ്ആപ്പ് നമ്പറാണോ?,negative
+Yes.,very positive,Neutral_response,യെസ് .,neutral
+"Okay,",neutral,Neutral_response,"ഓക്കെ ,",neutral
+I will share the details.,positive,Strong_interest,ഞാൻ ഡീറ്റെയിൽസ് പങ്കിടും.,very positive
+"Also,",neutral,Neutral_response,"കൂടാതെ,",neutral
+the internship is for one to three months.,neutral,Internship_details,ഇന്റേൺഷിപ്പ് ഒന്ന് മുതൽ മൂന്ന് മാസം വരെ.,neutral
+We have a small fee for this.,neutral,Fee_query,ഇതിന് ഞങ്ങൾക്ക് ഒരു ചെറിയ ഫീസ് ഉണ്ട്.,neutral
+The fee is 6000.,negative,Fee_query,ഫീസ് 6000 ആണ്.,very positive
+We will provide live projects and other things here.,very positive,Project_details,ഞങ്ങൾ തത്സമയ പ്രൊജക്ട്കളും മറ്റ് കാര്യങ്ങളും ഇവിടെ നൽകും.,very positive
+"Also,",neutral,Neutral_response,"കൂടാതെ,",neutral
+we will provide experience certificate.,positive,Certificate_query,ഞങ്ങൾ എക്സ്പീരിയൻസ് സർട്ടിഫിക്കറ്റ് നൽകും.,very positive
+"Also,",neutral,Neutral_response,"കൂടാതെ,",neutral
+we will provide experience certificate.,positive,Certificate_query,ഞങ്ങൾ എക്സ്പീരിയൻസ് സർട്ടിഫിക്കറ്റ് നൽകും.,very positive
+Okay.,neutral,Neutral_response,ഓക്കെ .,neutral
+Are you looking for an internship?,negative,Internship_details,നിങ്ങൾ ഒരു ഇന്റേൺഷിപ്പിനായി നോക്കുകയാണോ ?,negative
+I am.,very positive,Neutral_response,ഞാൻ.,very positive
+Okay.,neutral,Neutral_response,ഓക്കെ .,neutral

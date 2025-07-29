@@ -48,7 +48,7 @@
         <label>Custom File Name (optional)</label>
         <input type="text" name="custom_filename" class="form-control" />
         <label>Model Size</label>
-        <select name="model_size" class="form-select">
+        <select name="model_size" class="form-select" required>
           <option value="tiny">tiny</option>
           <option value="base">base</option>
           <option value="small" selected>small</option>
@@ -62,8 +62,8 @@
           <option value="{{ agent }}">{{ agent }}</option>
           {% endfor %}
         </select>
-        <label>Phone Number</label>
-        <input type="tel" name="phone" class="form-control" required />
+        <label>Phone Number (optional)</label>
+        <input type="tel" name="phone" class="form-control" />
         <label>Upload Audio</label>
         <input type="file" name="file" class="form-control" accept="audio/*" required />
         <button type="submit" class="btn btn-custom mt-3 w-100">🎧 Analyze</button>
@@ -360,6 +360,7 @@
           <tr>
             <th>Sentence</th>
             <th>Sentiment</th>
+            <th>Intent</th>
           </tr>
         </thead>
         <tbody>
@@ -367,6 +368,7 @@
           <tr>
             <td>{{ item.text }}</td>
             <td>{{ item.sentiment }}</td>
+            <td>{{ item.intent }}</td>
           </tr>
           {% endfor %}
         </tbody>

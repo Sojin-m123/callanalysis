@@ -1,0 +1,35 @@
+Sentence,Sentiment,Intent
+"Hello,",very positive,Neutral_response
+this is Deepti.,very positive,Neutral_response
+"Hello,",very positive,Neutral_response
+this is Deepti.,very positive,Neutral_response
+"Hello,",very positive,Neutral_response
+this is Deepti.,very positive,Neutral_response
+We are contacting you from software.,very positive,Location_query
+Okay.,neutral,Neutral_response
+"Okay,",neutral,Neutral_response
+where did you send the security to?,negative,Location_query
+That was the base call.,neutral,Neutral_response
+Okay.,neutral,Neutral_response
+Did you send the details here?,negative,Neutral_response
+Did you send the details here?,negative,Neutral_response
+I don't remember.,negative,Neutral_response
+I don't remember.,negative,Neutral_response
+Okay.,neutral,Neutral_response
+This is Is it a WhatsApp number?,negative,Strong_interest
+Yes.,very positive,Neutral_response
+"Okay,",neutral,Neutral_response
+I will share the details.,positive,Strong_interest
+"Also,",neutral,Neutral_response
+the internship is for one to three months.,neutral,Internship_details
+We have a small fee for this.,neutral,Fee_query
+The fee is 6000.,negative,Fee_query
+We will provide live projects and other things here.,very positive,Project_details
+"Also,",neutral,Neutral_response
+we will provide experience certificate.,positive,Certificate_query
+"Also,",neutral,Neutral_response
+we will provide experience certificate.,positive,Certificate_query
+Okay.,neutral,Neutral_response
+Are you looking for an internship?,negative,Internship_details
+I am.,very positive,Neutral_response
+Okay.,neutral,Neutral_response

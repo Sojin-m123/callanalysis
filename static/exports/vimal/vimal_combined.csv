@@ -1,0 +1,27 @@
+EN_Sentence,EN_Sentiment,EN_Intent,ML_Sentence,ML_Sentiment
+"Hello, this is Deepti.",very positive,Neutral_response,"ഹലോ, ഇത് ഡീപ്തിയയാണ്.",negative
+"Hello, this is Deepti.",very positive,Neutral_response,"ഹലോ, ഇത് ഡീപ്തിയയാണ്.",negative
+How are you?,very positive,Neutral_response,സുഖമാണോ?,neutral
+I am in touch with Deepti from Tino Software.,very positive,company_query,ടിനോ സോഫ്റ്റ്‌വെയർ നിന്ന് ഞാൻ ഡീപ്റ്റിയുമായി ബന്ധപ്പെട്ടിരിക്കുന്നു.,very positive
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+"Okay, so the security in India, did you send an inquiry?",neutral,Confirmation,"ഓക്കെ , അതിനാൽ ഇന്ത്യയിലെ സെക്യൂരിറ്റി, നിങ്ങൾ ഇൻക്വയറി അയച്ചോ?",negative
+That was a basic call.,neutral,Neutral_response,അതൊരു അടിസ്ഥാന കോൾ ആയിരുന്നു.,neutral
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+Did you send the details here?,negative,Neutral_response,നിങ്ങൾ ഡീറ്റെയിൽസ് ഇവിടെ അയച്ചോ?,negative
+I don't remember.,negative,Neutral_response,എനിക്ക് ഓർമ്മയില്ല.,negative
+I don't remember as I have a lot of work.,neutral,Project_details,എനിക്ക് ധാരാളം ജോലി ഉള്ളതിനാൽ ഞാൻ ഓർക്കുന്നില്ല.,negative
+"Okay, okay.",neutral,Confirmation,"ഓക്കെ , ഓക്കെ .",very positive
+This is Is it a WhatsApp number?,negative,Neutral_response,ഇതൊരു വാട്ട്സ്ആപ്പ് നമ്പറാണോ?,negative
+Yes.,very positive,Strong_interest,യെസ് .,neutral
+"Okay, I will share the details.",neutral,Confirmation,"ഓക്കെ , ഞാൻ ഡീറ്റെയിൽസ് പങ്കിടും.",very positive
+"Also, the internship is for one to three months.",positive,Internship_details,"കൂടാതെ, ഇന്റേൺഷിപ്പ് ഒന്ന് മുതൽ മൂന്ന് മാസം വരെ.",neutral
+We have a small fee.,neutral,Fee_query,ഞങ്ങൾക്ക് ഒരു ചെറിയ ഫീസ് ഉണ്ട്.,neutral
+The fee is 6000.,negative,Fee_query,ഫീസ് 6000 ആണ്.,very positive
+We provide life projects and other things here.,very positive,Project_details,ഞങ്ങൾ ജീവിത പ്രൊജക്ട്കളും മറ്റ് കാര്യങ്ങളും ഇവിടെ നൽകുന്നു.,very positive
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+"Also, we provide experience certificates.",very positive,Certificate_query,"കൂടാതെ, ഞങ്ങൾ പരിചയ സർട്ടിഫിക്കറ്റുകൾ നൽകുന്നു.",very positive
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
+Are you looking for an internship?,negative,Confirmation,നിങ്ങൾ ഒരു ഇന്റേൺഷിപ്പിനായി നോക്കുകയാണോ ?,negative
+I will tell you.,very positive,Neutral_response,ഞാൻ നിങ്ങളോട് പറയും.,neutral
+Okay.,neutral,Confirmation,ഓക്കെ .,neutral
