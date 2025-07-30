@@ -1,4 +1,4 @@
-/* 🌌 Universal Reset */
+/* 🌌 Reset & Base */
 * {
   margin: 0;
   padding: 0;
@@ -7,101 +7,101 @@
 }
 
 body {
-  background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url("../images/bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+    url("../images/bg.jpg") center/cover fixed;
   color: #f5f5f5;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
-  overflow: hidden;
 }
 
+h1,
+.left-panel h2,
+.analysis-card h5,
+.analysis-card h6,
+details summary {
+  color: #e6f1fa; /* lighter heading color */
+}
+
+h1 {
+  margin: 1.5rem 0;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  font-weight: 700;
+}
+
+/* Glass container */
 .glass-container {
   display: flex;
   flex-direction: row;
   width: 95%;
   max-width: 1300px;
   height: calc(100vh - 100px);
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.6); /* white border */
   overflow: hidden;
-}
-
-h1 {
-  margin-top: 1.5rem;
-  color: #fff;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
 }
 
 /* Left Panel */
 .left-panel {
   background: rgba(255, 255, 255, 0.07);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
   width: 100%;
   max-width: 400px;
   padding: 2rem;
   overflow-y: auto;
-  height: 100%;
-}
-
-.left-panel h2 {
-  color: #42a5f5;
-  margin-bottom: 1.5rem;
 }
 
 .form-section label {
   margin-top: 0.5rem;
   font-weight: 500;
+  font-size: 0.95rem;
+  display: block;
 }
 
 /* Buttons */
-.btn-custom {
-  background: linear-gradient(to right, #42a5f5, #1e88e5);
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 10px 16px;
+.btn,
+.nav-btn,
+.delete-btn {
   border-radius: 8px;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
+.btn-custom {
+  background: linear-gradient(to right, #42a5f5, #1e88e5);
+  color: #fff;
+}
 .btn-custom:hover {
   background: linear-gradient(to right, #1565c0, #1e88e5);
-  transform: scale(1.03);
-}
-
-.delete-btn {
-  background-color: #c0392b;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-}
-
-.delete-btn:hover {
-  background-color: #992d22;
+  transform: scale(1.04);
 }
 
 .nav-btn {
-  background-color: #0c7c59;
-  color: white;
-  font-weight: bold;
+  background: #0c7c59;
+  color: #fff;
+}
+.nav-btn:hover {
+  background: #095d43;
+}
+
+.delete-btn {
+  background: linear-gradient(to right, #e74c3c, #c0392b);
+  color: #fff;
+  font-weight: 600;
   border: none;
   border-radius: 8px;
   padding: 10px;
+  text-transform: uppercase;
 }
-
-.nav-btn:hover {
-  background-color: #095d43;
+.delete-btn:hover {
+  background: linear-gradient(to right, #ff5a4d, #d23b2a);
+  transform: scale(1.04);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
 }
 
 /* Right Panel */
@@ -113,294 +113,163 @@ h1 {
   position: relative;
 }
 
-.right-panel h2 {
-  color: #fff;
-  margin-bottom: 1rem;
-}
-
-/* Result Card */
-.analysis-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-  margin-bottom: 2rem;
-  color: #eee;
-}
-
-.card-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #42a5f5;
-}
-
-audio {
-  background-color: #f8f9fa;
-  border-radius: 12px;
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.transcript-box {
-  background-color: rgba(255, 255, 255, 0.06);
-  color: #e0e0e0;
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.result-label {
-  font-weight: 600;
-  color: #90caf9;
-}
-
-.result-icon {
-  font-size: 1.1rem;
-  margin-right: 4px;
-}
-
-.report-btn {
-  border: 2px solid #42a5f5;
-  border-radius: 12px;
-  padding: 10px;
-  color: #42a5f5;
-  font-weight: 600;
-  background: transparent;
-  transition: 0.3s ease;
-  width: 100%;
-}
-
-.report-btn:hover {
-  background: #42a5f5;
-  color: white;
-  transform: scale(1.02);
-}
-
 /* Loader */
 .loading-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
 }
-
 .loading-gif {
   width: 80px;
   height: 80px;
-  margin-bottom: 1rem;
-  background-color: transparent;
   filter: drop-shadow(0 0 12px #42a5f5);
 }
-
 .loading-text {
-  font-size: 1.2rem;
+  margin-top: 0.5rem;
   color: #90caf9;
   font-weight: 500;
-  text-shadow: 0 0 6px rgba(66, 165, 245, 0.3);
 }
 
-/* Tab Nav */
-.nav-tabs .nav-link.active {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #42a5f5;
-}
-
+/* Tabs */
 .nav-tabs .nav-link {
-  color: #ccc;
+  color: #bbb;
   font-weight: 500;
+  border: none;
+}
+.nav-tabs .nav-link.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #42a5f5;
+  font-weight: 600;
 }
 
-/* 📋 Sentence-Level Analysis Tables */
+/* Cards */
+.analysis-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 1.5rem;
+  color: #eee;
+  overflow-x: auto;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Tables (DataTables styling) */
 .analysis-card table {
-  background-color: rgba(255, 255, 255, 0.04);
-  color: #f1f1f1;
-  border-radius: 10px;
-  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
   font-size: 0.9rem;
 }
-
 .analysis-card table thead {
-  background-color: rgba(66, 165, 245, 0.2);
-  color: #ffffff;
-  font-weight: bold;
+  background: rgba(66, 165, 245, 0.2);
+  color: #fff;
 }
-
 .analysis-card table th,
 .analysis-card table td {
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 8px 12px;
-  vertical-align: middle;
 }
 
-.analysis-card table td {
-  word-break: break-word;
+.dataTables_wrapper .dataTables_filter input {
+  border-radius: 20px;
+  border: 1px solid #42a5f5;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 6px 12px;
+}
+.dataTables_wrapper .dataTables_length select {
+  border-radius: 6px;
+  border: 1px solid #42a5f5;
+  padding: 4px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border-radius: 50%;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 2px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: #42a5f5 !important;
 }
 
-.analysis-card h6 {
-  margin-bottom: 1rem;
+/* Details element */
+details summary {
   font-weight: 600;
-  color: #90caf9;
+  cursor: pointer;
+}
+textarea.form-control {
+  font-size: 0.9rem;
+  min-height: 50px;
 }
 
-/* 🧱 Tables on Mobile */
-@media (max-width: 768px) {
-  .analysis-card table {
-    font-size: 0.85rem;
-  }
+/* Audio Player */
+audio {
+  background: #f8f9fa;
+  border-radius: 12px;
+  width: 100%;
 }
 
-/* Scrollbars */
-.left-panel::-webkit-scrollbar,
-.right-panel::-webkit-scrollbar {
-  width: 6px;
+/* Select2 Styling */
+.select2-container--bootstrap-5 .select2-selection {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid #ffffff !important; /* white border */
+  border-radius: 32px !important;
+  padding: 6px 12px !important;
+  min-height: 42px;
+  color: #fff;
 }
 
-.left-panel::-webkit-scrollbar-thumb,
-.right-panel::-webkit-scrollbar-thumb {
-  background: #42a5f5;
-  border-radius: 5px;
+.select2-selection__choice {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 20px !important;
+  font-size: 0.85rem;
+  padding: 3px 10px;
 }
 
-/* Hide */
-.d-none {
-  display: none !important;
+.select2-selection__choice__remove {
+  color: #fff !important;
+}
+
+.select2-dropdown {
+  background: rgba(30, 30, 30, 0.9) !important; /* dark glass dropdown */
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 10px !important;
+}
+
+.select2-results__option {
+  padding: 8px 12px;
+  color: #fff !important;
+}
+
+.select2-results__option--highlighted {
+  background: #42a5f5 !important;
+  color: #fff !important;
+}
+
+.select2-selection__placeholder {
+  color: #ddd !important;
+  font-style: italic;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  body {
-    padding: 1rem;
-    align-items: stretch;
-  }
-
   .glass-container {
     flex-direction: column;
     height: auto;
-    max-height: none;
   }
-
   .left-panel,
   .right-panel {
     width: 100%;
     max-width: 100%;
-    height: auto;
-    overflow: visible;
   }
-}
-#sentimentChart {
-  width: 100%;
-  border-radius: 8px;
-}
-/* ✅ Fix: Prevent Plotly charts from overflowing */
-.analysis-card {
-  overflow-x: auto;
-  padding: 1rem;
-}
-
-/* ✅ Make all Plotly chart containers responsive */
-.analysis-card .plotly-graph-div,
-.analysis-card > div[id^="enSentimentBar"],
-.analysis-card > div[id^="mlSentimentBar"],
-.analysis-card > div[id^="intentBar"],
-.analysis-card > div[id^="sentimentTrend"],
-.analysis-card > div[id^="sentimentDiff"] {
-  width: 100% !important;
-  max-width: 100%;
-  overflow-x: auto;
-}
-details summary {
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.details-controls {
-  display: flex;
-  gap: 10px;
-  margin-top: 5px;
-}
-
-textarea.form-control {
-  font-size: 0.9rem;
-  height: auto;
-  min-height: 50px;
-}
-.analysis-card {
-  background: rgba(255, 255, 255, 0.06);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-  color: white;
-}
-/* 🔴 Select2 Input Field Border */
-.select2-container--bootstrap-5 .select2-selection {
-  background: #fff !important;
-  border: 2px solid #ff6b6b !important; /* light red */
-  border-radius: 32px !important;       /* pill shape */
-  padding: 6px 12px !important;
-  min-height: 42px;
-  transition: all 0.3s ease;
-  box-shadow: none;
-  font-size: 0.95rem;
-}
-
-/* 🧊 Selected Tags/Chips */
-.select2-selection__choice {
-  background-color: #ff6b6b !important; /* soft red */
-  color: #fff !important;
-  border: none !important;
-  border-radius: 999px !important;      /* full rounded pills */
-  padding: 4px 10px !important;
-  margin: 4px 6px 4px 0 !important;
-  font-size: 0.85rem;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  box-shadow: none;
-}
-
-/* ❌ Close Button in Chip */
-.select2-selection__choice__remove {
-  color: white !important;
-  margin-left: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-/* ✨ Dropdown List Styling */
-.select2-dropdown {
-  background: #fff !important;
-  border: 1px solid #ddd !important;
-  border-radius: 10px !important;
-  color: #333 !important;
-  font-size: 0.9rem;
-}
-
-/* 📜 Dropdown Option */
-.select2-results__option {
-  padding: 8px 12px;
-}
-
-/* 🔵 Highlighted Option */
-.select2-results__option--highlighted {
-  background-color: #ff6b6b !important;
-  color: white !important;
-}
-.select2-selection__placeholder {
-  color: #888 !important;
-  font-style: italic;
+  .analysis-card table {
+    font-size: 0.85rem;
+  }
 }

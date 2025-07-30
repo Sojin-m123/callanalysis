@@ -1,0 +1,7 @@
+Sentence,Sentiment,Intent
+"Hello This is Agustin Beni Hello Good Afternoon Agustin,",very positive,Neutral_response
+I am in touch with you from the software Okay I know you were looking for an internship Where were you going?,neutral,Internship_details
+"I was looking for a paid internship Okay,",neutral,Internship_details
+"we are not getting paid Now we are getting the one with a fee The reason to avoid that is Our live projects are affordable for you You were with the seniors You used to work in a junior position Okay We provide training certificate I am currently working I am looking for something else I am not looking for training Okay,",neutral,No_interest
+can you tell me which position you are looking for?,neutral,Neutral_response
+I am looking for a job I am looking for a job in the development field,neutral,Project_details
