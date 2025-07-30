@@ -1,33 +1,31 @@
-/* 🌌 Reset & Base */
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+  background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
     url("../images/bg.jpg") center/cover fixed;
   color: #f5f5f5;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-h1,
-.left-panel h2,
-.analysis-card h5,
-.analysis-card h6,
-details summary {
-  color: #e6f1fa; /* lighter heading color */
+  height: 100vh;
 }
 
 h1 {
+  color: #ffffff;
   margin: 1.5rem 0;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
   font-weight: 700;
+}
+
+h2, .analysis-card h5, .analysis-card h6, details summary {
+  color: #e9f3fc;
+  font-weight: 600;
 }
 
 /* Glass container */
@@ -37,78 +35,26 @@ h1 {
   width: 95%;
   max-width: 1300px;
   height: calc(100vh - 100px);
-  margin-bottom: 1rem;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.6); /* white border */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
 }
 
-/* Left Panel */
+/* Panels */
 .left-panel {
-  background: rgba(255, 255, 255, 0.07);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
   max-width: 400px;
   padding: 2rem;
+  background: rgba(255, 255, 255, 0.07);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   overflow-y: auto;
 }
-
-.form-section label {
-  margin-top: 0.5rem;
-  font-weight: 500;
-  font-size: 0.95rem;
-  display: block;
-}
-
-/* Buttons */
-.btn,
-.nav-btn,
-.delete-btn {
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-custom {
-  background: linear-gradient(to right, #42a5f5, #1e88e5);
-  color: #fff;
-}
-.btn-custom:hover {
-  background: linear-gradient(to right, #1565c0, #1e88e5);
-  transform: scale(1.04);
-}
-
-.nav-btn {
-  background: #0c7c59;
-  color: #fff;
-}
-.nav-btn:hover {
-  background: #095d43;
-}
-
-.delete-btn {
-  background: linear-gradient(to right, #e74c3c, #c0392b);
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  text-transform: uppercase;
-}
-.delete-btn:hover {
-  background: linear-gradient(to right, #ff5a4d, #d23b2a);
-  transform: scale(1.04);
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
-}
-
-/* Right Panel */
 .right-panel {
   flex-grow: 1;
   padding: 2rem;
-  height: 100%;
   overflow-y: auto;
   position: relative;
 }
@@ -134,23 +80,52 @@ h1 {
   font-weight: 500;
 }
 
+/* Buttons */
+.btn,
+.nav-btn,
+.delete-btn {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-custom {
+  background: linear-gradient(to right, #42a5f5, #1e88e5);
+  color: #fff;
+}
+.btn-custom:hover {
+  background: #1e88e5;
+  transform: scale(1.03);
+}
+
+.nav-btn {
+  background: #42a5f5;
+  color: #fff;
+}
+.nav-btn:hover { background: #1e88e5; }
+
+.delete-btn {
+  background: #e74c3c;
+  color: #fff;
+}
+.delete-btn:hover { background: #c0392b; }
+
 /* Tabs */
 .nav-tabs .nav-link {
-  color: #bbb;
+  color: #ccc;
   font-weight: 500;
   border: none;
 }
 .nav-tabs .nav-link.active {
-  background: rgba(255, 255, 255, 0.15);
   color: #42a5f5;
-  font-weight: 600;
+  background: transparent;
+  border-bottom: 3px solid #42a5f5;
 }
 
 /* Cards */
 .analysis-card {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 1.5rem;
@@ -159,7 +134,7 @@ h1 {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* Tables (DataTables styling) */
+/* Tables */
 .analysis-card table {
   background: rgba(255, 255, 255, 0.04);
   font-size: 0.9rem;
@@ -174,30 +149,7 @@ h1 {
   padding: 8px 12px;
 }
 
-.dataTables_wrapper .dataTables_filter input {
-  border-radius: 20px;
-  border: 1px solid #42a5f5;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 6px 12px;
-}
-.dataTables_wrapper .dataTables_length select {
-  border-radius: 6px;
-  border: 1px solid #42a5f5;
-  padding: 4px;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-  border-radius: 50%;
-  border: none;
-  padding: 5px 10px;
-  margin: 0 2px;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff !important;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-  background: #42a5f5 !important;
-}
-
-/* Details element */
+/* Details */
 details summary {
   font-weight: 600;
   cursor: pointer;
@@ -214,45 +166,94 @@ audio {
   width: 100%;
 }
 
-/* Select2 Styling */
+/* ===== Select2 styling ===== */
+
+/* Multi-select box */
 .select2-container--bootstrap-5 .select2-selection {
   background: rgba(255, 255, 255, 0.1) !important;
-  border: 2px solid #ffffff !important; /* white border */
+  border: 2px solid #ffffff !important;
   border-radius: 32px !important;
-  padding: 6px 12px !important;
   min-height: 42px;
   color: #fff;
+  padding: 4px 6px !important;
 }
 
-.select2-selection__choice {
-  background: rgba(255, 255, 255, 0.2) !important;
+/* Chips layout inside the box */
+.select2-container--bootstrap-5 .select2-selection__rendered {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 4px 6px;
+}
+
+/* Selected tags (pill style) */
+.select2-container--bootstrap-5 .select2-selection__choice {
+  background: #ff5a5f !important;      
   color: #fff !important;
   border: none !important;
   border-radius: 20px !important;
   font-size: 0.85rem;
-  padding: 3px 10px;
+  padding: 5px 10px !important;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.select2-selection__choice__remove {
+/* Remove button inside tags */
+.select2-container--bootstrap-5 .select2-selection__choice__remove {
+  background: none !important;
+  border: none !important;
   color: #fff !important;
+  font-weight: bold;
+  cursor: pointer;
+}
+.select2-container--bootstrap-5 .select2-selection__choice__remove:hover {
+  opacity: 0.8;
 }
 
+/* Input field (fixes small square bug) */
+.select2-container--bootstrap-5 .select2-search__field {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  min-width: 60px;
+  color: #fff !important;
+  padding: 4px;
+}
+
+/* Dropdown container */
 .select2-dropdown {
-  background: rgba(30, 30, 30, 0.9) !important; /* dark glass dropdown */
-  border: 1px solid rgba(255, 255, 255, 0.4) !important;
-  border-radius: 10px !important;
+  background: rgba(30, 30, 30, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 6px 4px;
 }
 
-.select2-results__option {
-  padding: 8px 12px;
+/* Dropdown options (pill style) */
+.select2-container--bootstrap-5 .select2-results__option {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.12);
   color: #fff !important;
+  border-radius: 18px !important;
+  padding: 6px 14px !important;
+  margin: 4px 6px !important;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  width: auto;
 }
 
-.select2-results__option--highlighted {
-  background: #42a5f5 !important;
+/* Hover effect for dropdown options */
+.select2-container--bootstrap-5 .select2-results__option--highlighted {
+  background: #ff5a5f !important;
   color: #fff !important;
+  transform: scale(1.05);
+  box-shadow: 0 3px 8px rgba(255, 90, 95, 0.4);
 }
 
+/* Placeholder */
 .select2-selection__placeholder {
   color: #ddd !important;
   font-style: italic;
@@ -269,7 +270,5 @@ audio {
     width: 100%;
     max-width: 100%;
   }
-  .analysis-card table {
-    font-size: 0.85rem;
-  }
+  .analysis-card table { font-size: 0.85rem; }
 }

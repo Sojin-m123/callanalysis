@@ -357,7 +357,9 @@ def generate_leads():
             leads_data=leads_data,
             leads_selected=leads_selected,
             agent_summary=None,
-            high_interest_by_agent=None
+            high_interest_by_agent=None,
+            
+
         )
 
     except Exception as e:

@@ -3,39 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <title>Malayalam Call Analysis</title>
-      <!-- Include jQuery (required for Select2) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- jQuery & Select2 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  <!-- Bootstrap, Plotly & DataTables -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script>
-  $(document).ready(function () {
-    $('#lead-categories').select2({
-      placeholder: "Select Lead Categories",
-      tags: false,
-      width: '100%',
-      allowClear: true,
-      theme: "bootstrap-5"
-    });
-  });
-</script>
 
-  <script>
-    $(document).ready(function () {
-      $('#lead-categories').select2({
-        placeholder: "Select Lead Categories",
-        tags: false,
-        width: '100%',
-        allowClear: true,
-        theme: "bootstrap-5"
-      });
-    });
-  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body>
   <h1 class="text-center mb-4">📞 Malayalam Call Analysis System</h1>
@@ -43,10 +30,11 @@
   <div class="glass-container">
     <!-- LEFT PANEL -->
     <div class="left-panel">
-      <h2>📝 Analyze Call</h2>
+      <h2><i data-lucide="mic"></i> Analyze Call</h2>
       <form method="post" enctype="multipart/form-data" class="form-section">
         <label>Custom File Name (optional)</label>
         <input type="text" name="custom_filename" class="form-control" />
+
         <label>Model Size</label>
         <select name="model_size" class="form-select" required>
           <option value="tiny">tiny</option>
@@ -56,25 +44,33 @@
           <option value="large-v2">large-v2</option>
           <option value="large-v3">large-v3</option>
         </select>
+
         <label>Agent</label>
         <select name="agent" class="form-select" required>
           {% for agent in agents %}
           <option value="{{ agent }}">{{ agent }}</option>
           {% endfor %}
         </select>
+
         <label>Phone Number (optional)</label>
         <input type="tel" name="phone" class="form-control" />
+
         <label>Upload Audio</label>
         <input type="file" name="file" class="form-control" accept="audio/*" required />
-        <button type="submit" class="btn btn-custom mt-3 w-100">🎧 Analyze</button>
+
+        <button type="submit" class="btn btn-custom mt-3 w-100">
+          <i data-lucide="headphones"></i> Analyze
+        </button>
       </form>
 
       <hr />
+
       <form method="post" action="/add_agent" class="mt-3">
         <label>Add Agent</label>
         <input type="text" name="new_agent" class="form-control" placeholder="New agent name" />
         <button class="btn nav-btn mt-2 w-100">Add</button>
       </form>
+
       <form method="post" action="/delete_agent" class="mt-3">
         <label>Delete Agent</label>
         <select name="delete_agent" class="form-select">
@@ -89,11 +85,13 @@
 
     <!-- RIGHT PANEL -->
     <div class="right-panel" id="right-panel">
+      <!-- Loader (toggle .d-none with JS if you use it) -->
       <div id="loading-spinner" class="loading-container d-none">
         <img src="{{ url_for('static', filename='images/loader.svg') }}" class="loading-gif" alt="Loading..." />
         <p class="loading-text">Processing audio...</p>
       </div>
 
+      <!-- Flash Messages -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           <div class="mt-2">
@@ -104,13 +102,15 @@
         {% endif %}
       {% endwith %}
 
+      <!-- TAB HEADER -->
       <div class="tab-container">
         <ul class="nav nav-tabs">
-          {% if not result %}
-          <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#recent">Recent Files</button></li>
-          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#performance">Agent Performance</button></li>
-          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#leads">Leads</button></li>
+         {% if not result %}
+          <li class="nav-item"><button class="nav-link {% if not agent_summary and not leads_data %}active{% endif %}" data-bs-toggle="tab" data-bs-target="#recent">Recent Files</button></li>
+          <li class="nav-item"><button class="nav-link {% if agent_summary %}active{% endif %}" data-bs-toggle="tab" data-bs-target="#performance"> Agent Performance</button></li>
+          <li class="nav-item"><button class="nav-link {% if leads_data %}active{% endif %}" data-bs-toggle="tab" data-bs-target="#leads">Leads</button></li>
           {% endif %}
+
           {% if result %}
           <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#results">Results</button></li>
           <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#analysis">Analysis</button></li>
@@ -118,180 +118,183 @@
           {% endif %}
         </ul>
 
+        <!-- TAB CONTENT -->
         <div class="tab-content mt-3">
-        <!-- ... your existing HTML remains untouched ... -->
+          {% if not result %}
+          <!-- Recent Files -->
+    <div class="tab-pane fade {% if not agent_summary and not leads_data %}show active{% endif %}" id="recent">
+            <div class="analysis-card">
+              <h5>📁 Recent Files</h5>
 
-<!-- ✅ FIXED TAB STRUCTURE -->
-{% if not result %}
-<div class="tab-pane fade show active" id="recent">
-  <div class="analysis-card">
-    <h5>📁 Recent Files</h5>
-    <form method="get" action="/">
-      <label for="sort">Sort by</label>
-      <select name="sort_by" id="sort" class="form-select mb-3" onchange="this.form.submit()">
-        <option value="date">Date (Newest First)</option>
-        <option value="lead">Lead Score (High to Low)</option>
-        <option value="intent">Intent Score (High to Low)</option>
-        <option value="agent">Agent Name</option>
-      </select>
-    </form>
-    {% for entry in recent_files %}
-    <div class="d-flex justify-content-between align-items-start mb-2">
-      <details class="w-100 me-3">
-        <summary>
-          {{ entry.audio_filename }} 
-          (Agent: {{ entry.agent }}, Mobile: {{ entry.phone or 'N/A' }}, Stored: {{ entry.timestamp.strftime('%Y-%m-%d %H:%M:%S') }})
-        </summary>
-        <p><strong>Lead Score:</strong> {{ entry.lead_score }}/100</p>
-        <p><strong>Intent Score:</strong> {{ entry.intent_score }}/100</p>
-        <p><strong>Emotion:</strong> {{ entry.sentiment or 'unknown' }}</p>
-        <p><strong>Raw Transcript:</strong><br><textarea class="form-control" readonly>{{ entry.transcript_en }}</textarea></p>
-        <p><strong>Malayalam Transcript:</strong><br><textarea class="form-control" readonly>{{ entry.transcript_ml }}</textarea></p>
-        {% if entry.audio_path %}
-        <audio controls class="w-100 mt-2">
-          <source src="{{ url_for('static', filename='uploads/' + entry.audio_filename) }}" type="audio/mpeg">
-        </audio>
-        {% endif %}
-        {% if entry.report_path %}
-        <div class="d-flex gap-2 mt-3">
-          <a href="{{ url_for('view_pdf', path=entry.report_path) }}" class="btn btn-outline-info btn-sm" target="_blank">📄 View PDF</a>
-          <a href="{{ url_for('download_pdf', path=entry.report_path) }}" class="btn btn-outline-success btn-sm">⬇ Download PDF</a>
-        </div>
-        {% endif %}
-      </details>
-      <form method="post" action="/delete_file">
-        <input type="hidden" name="filename" value="{{ entry.audio_filename }}">
-        <button class="btn btn-sm btn-danger ms-2">🗑️</button>
-      </form>
-    </div>
-    {% endfor %}
-  </div>
-</div>
-{% endif %}
+              <form method="get" action="/">
+                <label for="sort">Sort by</label>
+                <select name="sort_by" id="sort" class="form-select mb-3" onchange="this.form.submit()">
+                  <option value="date">Date (Newest First)</option>
+                  <option value="lead">Lead Score (High to Low)</option>
+                  <option value="intent">Intent Score (High to Low)</option>
+                  <option value="agent">Agent Name</option>
+                </select>
+              </form>
 
-<!-- ✅ Agent Performance Tab Always Available -->
-<div class="tab-pane fade" id="performance">
-  <div class="analysis-card">
-    <h5 class="text-info">🏅 Agent Performance</h5>
-    <form class="row mb-4" method="get" action="/agent_performance">
-      <div class="col-md-4">
-        <label>Select Agent</label>
-        <select class="form-select" name="agent" required>
-          <option value="">-- Select Agent --</option>
-          {% for agent in agents %}
-          <option value="{{ agent }}" {% if agent == selected_agent %}selected{% endif %}>{{ agent }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label>Start Date</label>
-        <input type="date" class="form-control" name="start_date" value="{{ start_date }}" required>
-      </div>
-      <div class="col-md-3">
-        <label>End Date</label>
-        <input type="date" class="form-control" name="end_date" value="{{ end_date }}" required>
-      </div>
-      <div class="col-md-2 d-flex align-items-end">
-        <button class="btn btn-outline-primary w-100">📊 Show</button>
-      </div>
-    </form>
-    {% if agent_summary.weekly_leads %}
-    <div class="mt-3">
-      <h6>Weekly Lead Categories</h6>
-      <div id="weeklyLeadBar"></div>
-      <h6 class="mt-4">Lead Category Distribution</h6>
-      <div id="categoryPie"></div>
-      <h6 class="mt-4">All Agents High Interest Lead Comparison</h6>
-      <div id="highInterestBar"></div>
-    </div>
-    {% else %}
-    <p class="text-warning mt-4">⚠️ No call data found for the selected agent or time range.</p>
-    {% endif %}
+              {% for entry in recent_files %}
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <details class="w-100 me-3">
+                  <summary>
+                    {{ entry.audio_filename }}
+                    (Agent: {{ entry.agent }}, Mobile: {{ entry.phone or 'N/A' }}, Stored: {{ entry.timestamp.strftime('%Y-%m-%d %H:%M:%S') }})
+                  </summary>
+                  <p><strong>Lead Score:</strong> {{ entry.lead_score }}/100</p>
+                  <p><strong>Intent Score:</strong> {{ entry.intent_score }}/100</p>
+                  <p><strong>Emotion:</strong> {{ entry.sentiment or 'unknown' }}</p>
+                  <p><strong>Raw Transcript:</strong><br><textarea class="form-control" readonly>{{ entry.transcript_en }}</textarea></p>
+                  <p><strong>Malayalam Transcript:</strong><br><textarea class="form-control" readonly>{{ entry.transcript_ml }}</textarea></p>
 
-  </div>
-  <!-- PDF Download Button -->
-  <form method="post" action="/download_agent_performance">
-    <input type="hidden" name="agent" value="{{ selected_agent }}">
-    <input type="hidden" name="start_date" value="{{ start_date }}">
-    <input type="hidden" name="end_date" value="{{ end_date }}">
-    <button class="btn btn-outline-danger mt-3 w-100">
-      ⬇️ Download PDF Report
-    </button>
-  </form>
-</div>
+                  {% if entry.audio_path %}
+                  <audio controls class="w-100 mt-2">
+                    <source src="{{ url_for('static', filename='uploads/' + entry.audio_filename) }}" type="audio/mpeg">
+                  </audio>
+                  {% endif %}
 
-<!-- ✅ Leads Tab Always Available -->
-<div class="tab-pane fade" id="leads">
-  <div class="analysis-card">
-    <h5>📞 Leads</h5>
-    <form method="post" action="/generate_leads">
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label for="start_date">Start Date</label>
-          <input type="date" class="form-control" name="start_date" id="start_date" required>
-        </div>
-        <div class="col-md-6">
-          <label for="end_date">End Date</label>
-          <input type="date" class="form-control" name="end_date" id="end_date" required>
-        </div>
-      </div>
-     <div class="mb-3">
-  <label for="lead-categories" class="form-label text-light">
-    🎯 Select Lead Categories
-  </label>
-  <select id="lead-categories" name="categories" class="form-select select2-multi" multiple required>
-    <option value="High Interest" selected>High Interest</option>
-    <option value="Moderate Interest" selected>Moderate Interest</option>
-    <option value="Low Interest" selected>Low Interest</option>
-  </select>
-</div>
+                  {% if entry.report_path %}
+                  <div class="d-flex gap-2 mt-3">
+                    <a href="{{ url_for('view_pdf', path=entry.report_path) }}" class="btn btn-outline-info btn-sm" target="_blank">📄 View PDF</a>
+                    <a href="{{ url_for('download_pdf', path=entry.report_path) }}" class="btn btn-outline-success btn-sm">⬇ Download PDF</a>
+                  </div>
+                  {% endif %}
+                </details>
 
-      <button type="submit" class="btn btn-danger w-100">📄 Generate Leads Report</button>
-    </form>
+                <form method="post" action="/delete_file">
+                  <input type="hidden" name="filename" value="{{ entry.audio_filename }}">
+                  <button class="btn btn-sm btn-danger ms-2">🗑️</button>
+                </form>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
 
-    {% if leads_data %}
-    <hr class="my-4">
-    <h6>Filtered Leads from {{ leads_selected }}</h6>
-    <table class="table table-striped table-sm table-bordered">
-      <thead class="table-light">
-        <tr>
-          <th>Date</th>
-          <th>Agent</th>
-          <th>Lead Score</th>
-          <th>Lead Category</th>
-          <th>Audio Filename</th>
-          <th>Mobile Number</th>
+          <!-- Agent Performance -->
+    <div class="tab-pane fade {% if agent_summary %}show active{% endif %}" id="performance">
+            <div class="analysis-card">
+              <h5 class="text-info">🏅 Agent Performance</h5>
 
-        </tr>
-      </thead>
-      <tbody>
-        {% for row in leads_data %}
-        <tr>
-          <td>{{ row.date }}</td>
-          <td>{{ row.agent }}</td>
-          <td>{{ row.lead_score }}</td>
-          <td>{{ row.lead_category }}</td>
-          <td>{{ row.filename }}</td>
-          <td>{{ row.phone }}</td>
-        </tr>
+              <form class="row mb-4" method="get" action="/agent_performance">
+                <div class="col-md-4">
+                  <label>Select Agent</label>
+                  <select class="form-select" name="agent" required>
+                    <option value="">-- Select Agent --</option>
+                    {% for agent in agents %}
+                    <option value="{{ agent }}" {% if agent == selected_agent %}selected{% endif %}>{{ agent }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Start Date</label>
+                  <input type="date" class="form-control" name="start_date" value="{{ start_date }}" required>
+                </div>
+                <div class="col-md-3">
+                  <label>End Date</label>
+                  <input type="date" class="form-control" name="end_date" value="{{ end_date }}" required>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                  <button class="btn btn-outline-primary w-100">📊 Show</button>
+                </div>
+              </form>
 
-        {% endfor %}
-      </tbody>
-    </table>
-    {% endif %}
-  </div>
-</div>
+              {% if agent_summary.weekly_leads %}
+              <div class="mt-3">
+                <h6>Weekly Lead Categories</h6>
+                <div id="weeklyLeadBar"></div>
+
+                <h6 class="mt-4">Lead Category Distribution</h6>
+                <div id="categoryPie"></div>
+
+                <h6 class="mt-4">All Agents High Interest Lead Comparison</h6>
+                <div id="highInterestBar"></div>
+              </div>
+              {% else %}
+              <p class="text-warning mt-4">⚠️ No call data found for the selected agent or time range.</p>
+              {% endif %}
+            </div>
+
+            <form method="post" action="/download_agent_performance">
+              <input type="hidden" name="agent" value="{{ selected_agent }}">
+              <input type="hidden" name="start_date" value="{{ start_date }}">
+              <input type="hidden" name="end_date" value="{{ end_date }}">
+              <button class="btn btn-outline-danger mt-3 w-100">⬇️ Download PDF Report</button>
+            </form>
+          </div>
+
+          <!-- Leads -->
+    <div class="tab-pane fade {% if leads_data %}show active{% endif %}" id="leads">
+            <div class="analysis-card">
+              <h5>📞 Leads</h5>
+
+              <form method="post" action="/generate_leads">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="start_date">Start Date</label>
+                    <input type="date" class="form-control" name="start_date" id="start_date" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="end_date">End Date</label>
+                    <input type="date" class="form-control" name="end_date" id="end_date" required>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="lead-categories" class="form-label text-light">🎯 Select Lead Categories</label>
+                  <select id="lead-categories" name="categories" class="form-select select2-multi" multiple required>
+                    <option value="High Interest" selected>High Interest</option>
+                    <option value="Moderate Interest" selected>Moderate Interest</option>
+                    <option value="Low Interest" selected>Low Interest</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn btn-danger w-100">📄 Generate Leads Report</button>
+              </form>
+
+              {% if leads_data %}
+              <hr class="my-4">
+              <h6>Filtered Leads from {{ leads_selected }}</h6>
+              <table class="table table-striped table-sm table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th>Date</th>
+                    <th>Agent</th>
+                    <th>Lead Score</th>
+                    <th>Lead Category</th>
+                    <th>Audio Filename</th>
+                    <th>Mobile Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in leads_data %}
+                  <tr>
+                    <td>{{ row.date }}</td>
+                    <td>{{ row.agent }}</td>
+                    <td>{{ row.lead_score }}</td>
+                    <td>{{ row.lead_category }}</td>
+                    <td>{{ row.filename }}</td>
+                    <td>{{ row.phone }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
 
           {% if result %}
-          <div class="tab-content mt-3">
-          <!-- RESULTS TAB -->
+          <!-- RESULTS -->
           <div class="tab-pane fade show active" id="results">
             <div class="analysis-card">
               <h5>📁 {{ result.file_name }}</h5>
               <p><strong>🎭 Sentiment:</strong> {{ result.sentiment }}</p>
               <p><strong>🎯 Intent:</strong> {{ result.intent }}</p>
               <p><strong>🧠 Intent Score:</strong> {{ result.intent_score }}/100</p>
-            <p><strong>📊 Lead Score:</strong>
+
+              <p><strong>📊 Lead Score:</strong>
                 <span class="fw-bold">{{ result.lead_score }}/100</span>
                 {% if result.lead_score >= 70 %}
                   <span class="badge bg-success ms-2">High Interest</span>
@@ -325,321 +328,230 @@
             </div>
           </div>
 
-                  <!-- ANALYSIS TAB -->
-         <div class="tab-pane fade" id="analysis">
-  <div class="analysis-card">
+          <!-- ANALYSIS -->
+          <div class="tab-pane fade" id="analysis">
+            <div class="analysis-card">
+              <h5 class="text-primary">🇬🇧 English Analysis</h5>
+              <div class="table-responsive mb-4">
+                <table id="enOnlyTable" class="table table-bordered table-striped display">
+                  <thead>
+                    <tr><th>Sentence</th><th>Sentiment</th><th>Intent</th></tr>
+                  </thead>
+                  <tbody>
+                    {% for item in result.en_analysis %}
+                    <tr><td>{{ item.text }}</td><td>{{ item.sentiment }}</td><td>{{ item.intent }}</td></tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
 
-    <!-- English Table -->
-    <h5 class="text-primary">🇬🇧 English Analysis</h5>
-    <div class="table-responsive mb-4">
-      <table id="enOnlyTable" class="table table-bordered table-striped display">
-        <thead>
-          <tr>
-            <th>Sentence</th>
-            <th>Sentiment</th>
-            <th>Intent</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for item in result.en_analysis %}
-          <tr>
-            <td>{{ item.text }}</td>
-            <td>{{ item.sentiment }}</td>
-            <td>{{ item.intent }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+              <h5 class="text-success">🇮🇳 Malayalam Analysis</h5>
+              <div class="table-responsive mb-4">
+                <table id="mlOnlyTable" class="table table-bordered table-striped display">
+                  <thead>
+                    <tr><th>Sentence</th><th>Sentiment</th><th>Intent</th></tr>
+                  </thead>
+                  <tbody>
+                    {% for item in result.ml_analysis %}
+                    <tr><td>{{ item.text }}</td><td>{{ item.sentiment }}</td><td>{{ item.intent }}</td></tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
 
-    <!-- Malayalam Table -->
-    <h5 class="text-success">🇮🇳 Malayalam Analysis</h5>
-    <div class="table-responsive mb-4">
-      <table id="mlOnlyTable" class="table table-bordered table-striped display">
-        <thead>
-          <tr>
-            <th>Sentence</th>
-            <th>Sentiment</th>
-            <th>Intent</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for item in result.ml_analysis %}
-          <tr>
-            <td>{{ item.text }}</td>
-            <td>{{ item.sentiment }}</td>
-            <td>{{ item.intent }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+              <h5 class="text-warning">🔀 English vs Malayalam Comparison</h5>
+              <div class="table-responsive mb-4">
+                <table id="combinedTable" class="table table-bordered table-striped display">
+                  <thead>
+                    <tr>
+                      <th>English Sentence</th><th>Malayalam Sentence</th><th>Intent Match</th>
+                      <th>EN Intent</th><th>ML Intent</th><th>EN Sentiment</th><th>ML Sentiment</th><th>Sentiment Diff</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if result and result.comparison_data %}
+                      {% for row in result.comparison_data %}
+                      <tr>
+                        <td>{{ row.english_sentence }}</td>
+                        <td>{{ row.malayalam_sentence }}</td>
+                        <td>{% if row.intent_match %}✅{% else %}❌{% endif %}</td>
+                        <td>{{ row.en_intent }}</td>
+                        <td>{{ row.ml_intent }}</td>
+                        <td>{{ row.en_sentiment }}</td>
+                        <td>{{ row.ml_sentiment }}</td>
+                        <td>{{ row.sentiment_diff }}</td>
+                      </tr>
+                      {% endfor %}
+                    {% else %}
+                      <tr><td colspan="8" class="text-center">No comparison data available.</td></tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
 
-    <!-- Combined Table -->
-    <h5 class="text-warning">🔀 English vs Malayalam Comparison</h5>
-    <div class="table-responsive mb-4">
-      <table id="combinedTable" class="table table-bordered table-striped display">
-        <thead>
-          <tr>
-            <th>English Sentence</th>
-            <th>Malayalam Sentence</th>
-            <th>Intent Match</th>
-            <th>EN Intent</th>
-            <th>ML Intent</th>
-            <th>EN Sentiment</th>
-            <th>ML Sentiment</th>
-            <th>Sentiment Diff</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% if result and result.comparison_data %}
-            {% for row in result.comparison_data %}
-            <tr>
-              <td>{{ row.english_sentence }}</td>
-              <td>{{ row.malayalam_sentence }}</td>
-              <td>
-                {% if row.intent_match %}
-                  ✅
-                {% else %}
-                  ❌
-                {% endif %}
-              </td>
-              <td>{{ row.en_intent }}</td>
-              <td>{{ row.ml_intent }}</td>
-              <td>{{ row.en_sentiment }}</td>
-              <td>{{ row.ml_sentiment }}</td>
-              <td>{{ row.sentiment_diff }}</td>
-            </tr>
-            {% endfor %}
-          {% else %}
-            <tr>
-              <td colspan="8" class="text-center">No comparison data available.</td>
-            </tr>
-          {% endif %}
-        </tbody>
-
-      </table>
-    </div>
-
-    <!-- Export Buttons -->
-    <div class="d-flex justify-content-around mt-4">
-      <form method="post" action="/export_csv">
-        <input type="hidden" name="file_name" value="{{ result.file_name }}">
-        <input type="hidden" name="export_type" value="en">
-        <button class="btn btn-outline-secondary">📄 Export EN</button>
-      </form>
-      <form method="post" action="/export_csv">
-        <input type="hidden" name="file_name" value="{{ result.file_name }}">
-        <input type="hidden" name="export_type" value="ml">
-        <button class="btn btn-outline-success">🇮🇳 Export ML</button>
-      </form>
-      <form method="post" action="/export_csv">
-        <input type="hidden" name="file_name" value="{{ result.file_name }}">
-        <input type="hidden" name="export_type" value="both">
-        <button class="btn btn-outline-primary">🔀 Export Combined</button>
-      </form>
-    </div>
-
-  </div>
-</div>
-
-
-
-            <!-- VISUALIZATIONS TAB -->
-            <div class="tab-pane fade" id="visualizations">
-              <div class="analysis-card text-center">
-                <h5>📊 Sentiment Distributions</h5>
-                <div class="row">
-                  <div class="col-md-6"><div id="enSentimentBar"></div></div>
-                  <div class="col-md-6"><div id="mlSentimentBar"></div></div>
-                </div>
-
-                <h5 class="mt-4">🎯 Intent Distribution</h5>
-                <div id="intentBar"></div>
-
-                <h5 class="mt-4">📈 Sentiment Trend</h5>
-                <div id="sentimentTrend"></div>
-
-                <h5 class="mt-4">📉 Sentiment Differences</h5>
-                <div id="sentimentDiff"></div>
+              <div class="d-flex justify-content-around mt-4">
+                <form method="post" action="/export_csv">
+                  <input type="hidden" name="file_name" value="{{ result.file_name }}">
+                  <input type="hidden" name="export_type" value="en">
+                  <button class="btn btn-outline-secondary">📄 Export EN</button>
+                </form>
+                <form method="post" action="/export_csv">
+                  <input type="hidden" name="file_name" value="{{ result.file_name }}">
+                  <input type="hidden" name="export_type" value="ml">
+                  <button class="btn btn-outline-success">🇮🇳 Export ML</button>
+                </form>
+                <form method="post" action="/export_csv">
+                  <input type="hidden" name="file_name" value="{{ result.file_name }}">
+                  <input type="hidden" name="export_type" value="both">
+                  <button class="btn btn-outline-primary">🔀 Export Combined</button>
+                </form>
               </div>
             </div>
           </div>
+
+          <!-- VISUALIZATIONS -->
+          <div class="tab-pane fade" id="visualizations">
+            <div class="analysis-card text-center">
+              <h5>📊 Sentiment Distributions</h5>
+              <div class="row">
+                <div class="col-md-6"><div id="enSentimentBar"></div></div>
+                <div class="col-md-6"><div id="mlSentimentBar"></div></div>
+              </div>
+
+              <h5 class="mt-4">🎯 Intent Distribution</h5>
+              <div id="intentBar"></div>
+
+              <h5 class="mt-4">📈 Sentiment Trend</h5>
+              <div id="sentimentTrend"></div>
+
+              <h5 class="mt-4">📉 Sentiment Differences</h5>
+              <div id="sentimentDiff"></div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
       </div>
-      {% endif %}
     </div>
   </div>
-<script>
-  $(document).ready(function () {
-    $('#enOnlyTable').DataTable({ pageLength: 5, responsive: true });
-    $('#mlOnlyTable').DataTable({ pageLength: 5, responsive: true });
-    $('#combinedTable').DataTable({ pageLength: 5, responsive: true });
-  });
-</script>
->
 
- <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+  <!-- Scripts (order matters) -->
+  <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Select2 Init -->
+  <script>
+    $(function () {
+      const $lead = $('#lead-categories');
+      if ($lead.length) {
+        $lead.select2({
+          placeholder: "Select Lead Categories",
+          tags: false,
+          width: '100%',
+          allowClear: true,
+          theme: "bootstrap-5"
+        });
+      }
+    });
+  </script>
 
-{% if result %}
-<script>
-  const enAnalysis = {{ result.en_analysis | tojson | safe }};
-  const mlAnalysis = {{ result.ml_analysis | tojson | safe }};
+  <!-- DataTables Init (guarded) -->
+  <script>
+    $(function () {
+      if ($('#enOnlyTable').length) { $('#enOnlyTable').DataTable({ pageLength: 5, responsive: true }); }
+      if ($('#mlOnlyTable').length) { $('#mlOnlyTable').DataTable({ pageLength: 5, responsive: true }); }
+      if ($('#combinedTable').length) { $('#combinedTable').DataTable({ pageLength: 5, responsive: true }); }
+    });
+  </script>
 
-  const countItems = (arr, key) => {
-    return arr.reduce((acc, cur) => {
+  <!-- Lucide Icons -->
+  <script>lucide.createIcons();</script>
+
+  <!-- Plotly: Results charts -->
+  {% if result %}
+  <script>
+    const enAnalysis = {{ result.en_analysis | tojson | safe }};
+    const mlAnalysis = {{ result.ml_analysis | tojson | safe }};
+
+    const countItems = (arr, key) => arr.reduce((acc, cur) => {
       const val = cur[key] || "unknown";
       acc[val] = (acc[val] || 0) + 1;
       return acc;
     }, {});
-  };
 
-  const plotBar = (id, counts, title, color) => {
-    const labels = Object.keys(counts);
-    const values = labels.map(l => counts[l]);
-    Plotly.newPlot(id, [{
-      x: labels,
-      y: values,
-      type: "bar",
-      marker: { color }
-    }], {
-      title,
-      plot_bgcolor: "transparent",
-      paper_bgcolor: "transparent",
-      font: { color: "white" }
+    const plotBar = (id, counts, title, color) => {
+      const labels = Object.keys(counts);
+      const values = labels.map(l => counts[l]);
+      Plotly.newPlot(id, [{
+        x: labels, y: values, type: "bar", marker: { color }
+      }], {
+        title, plot_bgcolor: "transparent", paper_bgcolor: "transparent", font: { color: "white" }
+      });
+    };
+
+    // Distributions
+    plotBar("enSentimentBar", countItems(enAnalysis, "sentiment"), "English Sentiment", "#42a5f5");
+    plotBar("mlSentimentBar", countItems(mlAnalysis, "sentiment"), "Malayalam Sentiment", "#66bb6a");
+    plotBar("intentBar", countItems(enAnalysis, "intent"), "Intent Distribution", "#ff7043");
+
+    // Trend
+    const toScore = s => s === "positive" ? 1 : s === "neutral" ? 0 : -1;
+    const xAxis = enAnalysis.map((_, i) => i + 1);
+    Plotly.newPlot("sentimentTrend", [
+      { x: xAxis, y: enAnalysis.map(x => toScore(x.sentiment)), name: "EN", type: "scatter", mode: "lines+markers", line: { color: "#42a5f5" } },
+      { x: xAxis, y: mlAnalysis.map(x => toScore(x.sentiment)), name: "ML", type: "scatter", mode: "lines+markers", line: { color: "#66bb6a" } }
+    ], { title: "Sentiment Trend", plot_bgcolor: "transparent", paper_bgcolor: "transparent", font: { color: "white" } });
+
+    // Difference
+    const diffs = enAnalysis.map((x, i) => Math.abs(toScore(x.sentiment) - toScore(mlAnalysis[i]?.sentiment || "neutral")));
+    Plotly.newPlot("sentimentDiff", [{ x: diffs, type: "histogram", marker: { color: "#ab47bc" } }], {
+      title: "Sentiment Difference (|EN - ML|)", plot_bgcolor: "transparent", paper_bgcolor: "transparent", font: { color: "white" }
     });
-  };
+  </script>
+  {% endif %}
 
-  // Sentiment Distribution
-  plotBar("enSentimentBar", countItems(enAnalysis, "sentiment"), "English Sentiment", "#42a5f5");
-  plotBar("mlSentimentBar", countItems(mlAnalysis, "sentiment"), "Malayalam Sentiment", "#66bb6a");
+  <!-- Plotly: Agent performance -->
+  {% if agent_summary %}
+  <script>
+    const weekData = {{ agent_summary.weekly_leads | tojson }};
+    const pieData = {{ agent_summary.lead_distribution | tojson }};
+    const highInterest = {{ high_interest_by_agent | tojson }};
 
-  // Intent Distribution
-  plotBar("intentBar", countItems(enAnalysis, "intent"), "Intent Distribution", "#ff7043");
+    Plotly.newPlot('weeklyLeadBar', [
+      { x: weekData.map(x => x.week), y: weekData.map(x => x["High Interest"]), name: 'High Interest', type: 'bar', marker: { color: 'green' } },
+      { x: weekData.map(x => x.week), y: weekData.map(x => x["Moderate Interest"]), name: 'Moderate Interest', type: 'bar', marker: { color: 'orange' } },
+      { x: weekData.map(x => x.week), y: weekData.map(x => x["Low Interest"]), name: 'Low Interest', type: 'bar', marker: { color: 'red' } }
+    ], { barmode: 'stack', title: 'Weekly Lead Categories' });
 
-  // Sentiment Trend
-  const toScore = s => s === "positive" ? 1 : s === "neutral" ? 0 : -1;
-  const xAxis = enAnalysis.map((_, i) => i + 1);
-  Plotly.newPlot("sentimentTrend", [
-    {
-      x: xAxis,
-      y: enAnalysis.map(x => toScore(x.sentiment)),
-      name: "EN",
-      type: "scatter",
-      mode: "lines+markers",
-      line: { color: "#42a5f5" }
-    },
-    {
-      x: xAxis,
-      y: mlAnalysis.map(x => toScore(x.sentiment)),
-      name: "ML",
-      type: "scatter",
-      mode: "lines+markers",
-      line: { color: "#66bb6a" }
-    }
-  ], {
-    title: "Sentiment Trend",
-    plot_bgcolor: "transparent",
-    paper_bgcolor: "transparent",
-    font: { color: "white" }
-  });
+    Plotly.newPlot('categoryPie', [{
+      labels: Object.keys(pieData),
+      values: Object.values(pieData),
+      type: 'pie',
+      marker: { colors: ['green', 'orange', 'red'] }
+    }], { title: 'Lead Category Distribution' });
 
-  // Sentiment Difference
-  const diffs = enAnalysis.map((x, i) => {
-    const e = toScore(x.sentiment);
-    const m = toScore(mlAnalysis[i]?.sentiment || "neutral");
-    return Math.abs(e - m);
-  });
-  Plotly.newPlot("sentimentDiff", [{
-    x: diffs,
-    type: "histogram",
-    marker: { color: "#ab47bc" }
-  }], {
-    title: "Sentiment Difference (|EN - ML|)",
-    plot_bgcolor: "transparent",
-    paper_bgcolor: "transparent",
-    font: { color: "white" }
-  });
-</script>
-{% endif %}
-{% if agent_summary %}
-<script>
-  const weekData = {{ agent_summary.weekly_leads | tojson }};
-  const pieData = {{ agent_summary.lead_distribution | tojson }};
-  const highInterest = {{ high_interest_by_agent | tojson }};
+    Plotly.newPlot('highInterestBar', [{
+      x: Object.keys(highInterest),
+      y: Object.values(highInterest),
+      type: 'bar',
+      marker: { color: 'blue' }
+    }], { title: 'High Interest Leads by Agent', xaxis: { title: "Agent" }, yaxis: { title: "Count", rangemode: "tozero" } });
 
-  console.log("WEEK DATA", weekData);
-  console.log("PIE DATA", pieData);
-  console.log("HIGH INTEREST", highInterest);
-Plotly.newPlot('weeklyLeadBar', [
-  {
-    x: weekData.map(x => x.week),
-    y: weekData.map(x => x["High Interest"]),
-    name: 'High Interest',
-    type: 'bar',
-    marker: { color: 'green' }
-  },
-  {
-    x: weekData.map(x => x.week),
-    y: weekData.map(x => x["Moderate Interest"]),
-    name: 'Moderate Interest',
-    type: 'bar',
-    marker: { color: 'orange' }
-  },
-  {
-    x: weekData.map(x => x.week),
-    y: weekData.map(x => x["Low Interest"]),
-    name: 'Low Interest',
-    type: 'bar',
-    marker: { color: 'red' }
-  }
-], {
-    barmode: 'stack',
-    title: 'Weekly Lead Categories'
-  });
-
-  Plotly.newPlot('categoryPie', [{
-    labels: Object.keys(pieData),
-    values: Object.values(pieData),
-    type: 'pie',
-    marker: { colors: ['green', 'orange', 'red'] }
-  }], {
-    title: 'Lead Category Distribution'
-  });
-
-  Plotly.newPlot('highInterestBar', [{
-    x: Object.keys(highInterest),
-    y: Object.values(highInterest),
-    type: 'bar',
-    marker: { color: 'blue' }
-  }], {
-    title: 'High Interest Leads by Agent',
-    xaxis: { title: "Agent" },
-    yaxis: { title: "Count", rangemode: "tozero" }
-  });
-</script>
-{% endif %}
-
-
-<!-- ✅ ADD THIS AFTER THE ABOVE AND BEFORE </body> -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const tabs = document.querySelectorAll('[data-bs-toggle="tab"]');
-  tabs.forEach(tab => {
-    tab.addEventListener('shown.bs.tab', function (e) {
-      if (e.target.dataset.bsTarget === "#performance") {
-        setTimeout(() => {
-          Plotly.Plots.resize('weeklyLeadBar');
-          Plotly.Plots.resize('categoryPie');
-          Plotly.Plots.resize('highInterestBar');
-        }, 300);  // ⏱️ allow layout to become visible first
-      }
+    // Resize when Performance tab becomes visible
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabs = document.querySelectorAll('[data-bs-toggle="tab"]');
+      tabs.forEach(tab => {
+        tab.addEventListener('shown.bs.tab', function (e) {
+          if (e.target.dataset.bsTarget === "#performance") {
+            setTimeout(() => {
+              Plotly.Plots.resize('weeklyLeadBar');
+              Plotly.Plots.resize('categoryPie');
+              Plotly.Plots.resize('highInterestBar');
+            }, 300);
+          }
+        });
+      });
     });
-  });
-});
-
-</script>
-
+  </script>
+  {% endif %}
 </body>
 </html>
